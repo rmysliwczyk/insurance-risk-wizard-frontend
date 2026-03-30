@@ -1,0 +1,41 @@
+name: Ensure code quality
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+    Lint:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v6
+
+            - name: Prepare dependencies
+              run: npm install --include=dev
+
+            - name: Run ESLint
+              run: npx eslint
+
+    Format:
+        needs: Lint
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v6
+              with:
+                  token: ${{ secrets.WORKFLOW_TOKEN }}
+                  persist-credentials: true
+
+            - name: Install npm dependencies
+              run: npm install --include=dev
+
+            - name: Run Prettier
+              run: npx prettier . -w
+
+            - name: Commit formatted code
+              uses: stefanzweifel/git-auto-commit-action@v7
+              with:
+                  commit_message: Automated code formatting
