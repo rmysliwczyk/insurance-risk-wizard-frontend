@@ -28,6 +28,7 @@ function App() {
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',
+					gap: 1,
 				}}
 			>
 				<Typography variant="h1">Insurance Risk Wizard</Typography>
