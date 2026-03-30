@@ -8,7 +8,7 @@ function App() {
 			<CssBaseline />
 			<Container
 				sx={{
-					display: 'flex',
+						display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',
 				}}
