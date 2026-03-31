@@ -44,8 +44,13 @@ function App() {
 	})
 
 	function onSubmit(data: FormInput) {
-		setValidatedFormData(data)
 		console.log('Form sent the following data:', data)
+
+		if (data.insuranceType != InsuranceType.Car) {
+			delete data['vehicleProductionYear'] // Cleanup so that it won't show up in the summary
+		}
+
+		setValidatedFormData(data)
 		setSummaryAvailable(true)
 		setFormStep(FormStep.Summary)
 		setRiskLevel(null)
