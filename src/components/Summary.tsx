@@ -39,6 +39,7 @@ export default function Summary({
 										flexDirection: 'row',
 										alignItems: 'center',
 										justifyContent: 'space-between',
+										overflow: 'auto',
 									}}
 								>
 									<Typography variant="subtitle2">
