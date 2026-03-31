@@ -6,19 +6,23 @@ import FormGroup from '@mui/material/FormGroup'
 import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
-import Select, { type SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 
-import { InsuranceType, type InsuranceDetailsFormProps } from '../types.ts'
+import { InsuranceType, type FormComponentProps } from '../types.ts'
+
+import { Controller } from 'react-hook-form'
 
 export default function InsuranceDetailsForm({
-	insuranceType,
-	setInsuranceType,
-}: InsuranceDetailsFormProps) {
+	control,
+	watch,
+}: FormComponentProps) {
+	const insuranceTypeField = watch
+		? watch(['insuranceType'])
+		: InsuranceType.Car
+
 	return (
 		<Box
-			component="form"
-			autoComplete="off"
 			sx={{
 				display: 'flex',
 				flexDirection: 'column',
@@ -27,53 +31,75 @@ export default function InsuranceDetailsForm({
 		>
 			<Grid container spacing={1}>
 				<Grid size={{ xs: 12, sm: 6 }}>
-					<FormControl fullWidth>
-						<InputLabel id="insurance-type">
-							Insurance type
-						</InputLabel>
-						<Select
-							labelId="insurance-type"
-							id="insurance-type-select"
-							label="Insurance type"
-							value={insuranceType}
-							onChange={(event: SelectChangeEvent) => {
-								setInsuranceType(
-									event.target.value as InsuranceType
-								)
-							}}
-						>
-							{Object.keys(InsuranceType).map(
-								(insuranceTypeOption) => (
-									<MenuItem value={insuranceTypeOption}>
-										{insuranceTypeOption}
-									</MenuItem>
-								)
-							)}
-						</Select>
-					</FormControl>
+					<Controller
+						name="insuranceType"
+						control={control}
+						render={({ field }) => (
+							<FormControl fullWidth>
+								<InputLabel id="insurance-type">
+									Insurance type
+								</InputLabel>
+								<Select
+									inputRef={field.ref}
+									value={field.value}
+									onChange={field.onChange}
+									labelId="insurance-type"
+									label="Insurance type"
+								>
+									{Object.keys(InsuranceType).map(
+										(insuranceTypeOption) => (
+											<MenuItem
+												value={insuranceTypeOption}
+											>
+												{insuranceTypeOption}
+											</MenuItem>
+										)
+									)}
+								</Select>
+							</FormControl>
+						)}
+					/>
 				</Grid>
-				{insuranceType == InsuranceType.Car && (
+				{insuranceTypeField == InsuranceType.Car && (
 					<Grid size={{ xs: 12, sm: 6 }}>
-						<TextField
+						<Controller
 							name="vehicleProductionYear"
-							id="vehicle-production-year"
-							label="Vehicle production year"
-							fullWidth
-							slotProps={{
-								htmlInput: { inputMode: 'numeric' },
-							}}
+							control={control}
+							render={({ field }) => (
+								<TextField
+									name={field.name}
+									inputRef={field.ref}
+									value={field.value}
+									onChange={field.onChange}
+									label="Vehicle production year"
+									variant="outlined"
+									fullWidth
+									slotProps={{
+										htmlInput: { inputMode: 'numeric' },
+									}}
+								/>
+							)}
 						/>
 					</Grid>
 				)}
 				<Grid size={{ xs: 12, sm: 6 }}>
-					<TextField
+					<Controller
 						name="coverageAmount"
-						id="coverage-amount"
-						label="Coverage amount"
-						fullWidth
-						slotProps={{
-							htmlInput: { inputMode: 'numeric' },
-						}}
+						control={control}
+						render={({ field }) => (
+							<TextField
+								name={field.name}
+								inputRef={field.ref}
+								value={field.value}
+								onChange={field.onChange}
+								label="Coverage amount"
+								variant="outlined"
+								fullWidth
+								slotProps={{
+									htmlInput: { inputMode: 'numeric' },
+								}}
+							/>
+						)}
 					/>
 				</Grid>
 				<Grid
@@ -85,12 +111,22 @@ export default function InsuranceDetailsForm({
 						justifyContent: 'center',
 					}}
 				>
-					<FormGroup>
-						<FormControlLabel
-							control={<Checkbox />}
-							label="Add additional options"
-						/>
-					</FormGroup>
+					<Controller
+						name="additionalOptions"
+						control={control}
+						render={({ field }) => (
+							<FormGroup>
+								<FormControlLabel
+									name={field.name}
+									inputRef={field.ref}
+									value={field.value}
+									onChange={field.onChange}
+									control={<Checkbox />}
+									label="Add additional options"
+								/>
+							</FormGroup>
+						)}
+					/>
 				</Grid>
 			</Grid>
 		</Box>
