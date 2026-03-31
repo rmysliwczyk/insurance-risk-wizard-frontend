@@ -19,7 +19,7 @@ import {
 } from './types.ts'
 
 import { useForm } from 'react-hook-form'
-import { useState, useEffect} from 'react'
+import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 function App() {
