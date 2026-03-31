@@ -46,9 +46,9 @@ function App() {
 	function onSubmit(data: FormInput) {
 		console.log('Form sent the following data:', data)
 
-		if (data.insuranceType != InsuranceType.Car) {
-			delete data['vehicleProductionYear'] // Cleanup so that it won't show up in the summary
-		}
+		// if (data.insuranceType != InsuranceType.Car) {
+		// 	delete data.vehicleProductionYear // Cleanup of the data, so that vehicle production year will not show null in summary
+		// }
 
 		setValidatedFormData(data)
 		setSummaryAvailable(true)
