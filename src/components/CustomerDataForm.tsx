@@ -6,7 +6,10 @@ import { type FormComponentProps } from '../types.ts'
 
 import { Controller } from 'react-hook-form'
 
-export default function CustomerDataForm({ control }: FormComponentProps) {
+export default function CustomerDataForm({
+	control,
+	formState,
+}: FormComponentProps) {
 	return (
 		<Box
 			sx={{
@@ -26,6 +29,10 @@ export default function CustomerDataForm({ control }: FormComponentProps) {
 								inputRef={field.ref}
 								value={field.value}
 								onChange={field.onChange}
+								error={Boolean(field.name in formState.errors)}
+								helperText={
+									formState.errors[field.name]?.message
+								}
 								label="First name"
 								variant="outlined"
 								fullWidth
@@ -43,6 +50,10 @@ export default function CustomerDataForm({ control }: FormComponentProps) {
 								inputRef={field.ref}
 								value={field.value}
 								onChange={field.onChange}
+								error={Boolean(field.name in formState.errors)}
+								helperText={
+									formState.errors[field.name]?.message
+								}
 								label="Last name"
 								variant="outlined"
 								fullWidth
@@ -60,6 +71,10 @@ export default function CustomerDataForm({ control }: FormComponentProps) {
 								inputRef={field.ref}
 								value={field.value}
 								onChange={field.onChange}
+								error={Boolean(field.name in formState.errors)}
+								helperText={
+									formState.errors[field.name]?.message
+								}
 								label="Age"
 								variant="outlined"
 								fullWidth
@@ -80,6 +95,10 @@ export default function CustomerDataForm({ control }: FormComponentProps) {
 								inputRef={field.ref}
 								value={field.value}
 								onChange={field.onChange}
+								error={Boolean(field.name in formState.errors)}
+								helperText={
+									formState.errors[field.name]?.message
+								}
 								label="City"
 								variant="outlined"
 								fullWidth

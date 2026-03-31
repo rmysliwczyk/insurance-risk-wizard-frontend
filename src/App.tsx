@@ -9,25 +9,27 @@ import CustomerDataForm from './components/CustomerDataForm'
 import InsuranceDetailsForm from './components/InsuranceDetailsForm'
 import Summary from './components/Summary'
 
-import { FormStep, InsuranceType, type FormInput } from './types.ts'
+import { schema, FormStep, InsuranceType, type FormInput } from './types.ts'
 
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 function App() {
 	const [formStep, setFormStep] = useState<FormStep>(FormStep.CustomerData)
 	const [summaryAvailable] = useState<boolean>(true)
-	const { handleSubmit, control, watch } = useForm<FormInput>({
+	const { handleSubmit, control, watch, formState } = useForm<FormInput>({
 		defaultValues: {
 			firstName: '',
 			lastName: '',
-			age: 18,
+			age: '' as any as number,
 			city: '',
 			insuranceType: InsuranceType.Car,
-			vehicleProductionYear: 0,
-			coverageAmount: 1000,
+			vehicleProductionYear: '' as any as number,
+			coverageAmount: '' as any as number,
 			additionalOptions: false,
 		},
+		resolver: zodResolver(schema),
 	})
 
 	function onSubmit(data: FormInput) {
@@ -46,7 +48,11 @@ function App() {
 				}}
 			>
 				<Typography variant="h1">Insurance Risk Wizard</Typography>
-				<form onSubmit={handleSubmit(onSubmit)} id="risk-form">
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					id="risk-form"
+					autoComplete="off"
+				>
 					<Box
 						sx={{
 							maxWidth: '640px',
@@ -54,10 +60,14 @@ function App() {
 						}}
 					>
 						{formStep == FormStep.CustomerData ? (
-							<CustomerDataForm control={control} />
+							<CustomerDataForm
+								control={control}
+								formState={formState}
+							/>
 						) : formStep == FormStep.InsuranceDetails ? (
 							<InsuranceDetailsForm
 								control={control}
+								formState={formState}
 								watch={watch}
 							/>
 						) : formStep == FormStep.Summary ? (
