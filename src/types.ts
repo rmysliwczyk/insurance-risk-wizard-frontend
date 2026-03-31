@@ -17,6 +17,12 @@ export enum InsuranceType {
 	Travel = 'Travel',
 }
 
+export enum RiskLevel {
+	Low = 'low',
+	Medium = 'medium',
+	High = 'high',
+}
+
 export const schema = z
 	.object({
 		firstName: z.string().min(1, 'Please provide the first name'),
@@ -49,8 +55,15 @@ export const schema = z
 	})
 
 export interface FormInput extends z.infer<typeof schema> {}
+
 export interface FormComponentProps {
 	control: Control<FormInput>
 	formState: FormState<FormInput>
 	watch?: UseFormWatch<FormInput>
+}
+
+export interface SummaryComponentProps {
+	data: FormInput | null
+	riskLevel: RiskLevel | null
+	fetchError: boolean | null
 }
