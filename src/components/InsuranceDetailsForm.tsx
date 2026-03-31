@@ -15,6 +15,7 @@ import { Controller } from 'react-hook-form'
 
 export default function InsuranceDetailsForm({
 	control,
+	formState,
 	watch,
 }: FormComponentProps) {
 	const insuranceTypeField = watch
@@ -43,6 +44,9 @@ export default function InsuranceDetailsForm({
 									inputRef={field.ref}
 									value={field.value}
 									onChange={field.onChange}
+									error={Boolean(
+										field.name in formState.errors
+									)}
 									labelId="insurance-type"
 									label="Insurance type"
 								>
@@ -71,6 +75,12 @@ export default function InsuranceDetailsForm({
 									inputRef={field.ref}
 									value={field.value}
 									onChange={field.onChange}
+									error={Boolean(
+										field.name in formState.errors
+									)}
+									helperText={
+										formState.errors[field.name]?.message
+									}
 									label="Vehicle production year"
 									variant="outlined"
 									fullWidth
@@ -92,6 +102,10 @@ export default function InsuranceDetailsForm({
 								inputRef={field.ref}
 								value={field.value}
 								onChange={field.onChange}
+								error={Boolean(field.name in formState.errors)}
+								helperText={
+									formState.errors[field.name]?.message
+								}
 								label="Coverage amount"
 								variant="outlined"
 								fullWidth
