@@ -2,11 +2,13 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 
-export default function CustomerDataForm() {
+import { type FormComponentProps } from '../types.ts'
+
+import { Controller } from 'react-hook-form'
+
+export default function CustomerDataForm({ control }: FormComponentProps) {
 	return (
 		<Box
-			component="form"
-			autoComplete="off"
 			sx={{
 				display: 'flex',
 				flexDirection: 'column',
@@ -15,41 +17,74 @@ export default function CustomerDataForm() {
 		>
 			<Grid container spacing={1}>
 				<Grid size={{ xs: 12, sm: 6 }}>
-					<TextField
+					<Controller
 						name="firstName"
-						id="first-name"
-						label="First name (required)"
-						variant="outlined"
-						fullWidth
+						control={control}
+						render={({ field }) => (
+							<TextField
+								name={field.name}
+								inputRef={field.ref}
+								value={field.value}
+								onChange={field.onChange}
+								label="First name"
+								variant="outlined"
+								fullWidth
+							/>
+						)}
 					/>
 				</Grid>
 				<Grid size={{ xs: 12, sm: 6 }}>
-					<TextField
+					<Controller
 						name="lastName"
-						id="last-name"
-						label="Last name (required)"
-						variant="outlined"
-						fullWidth
+						control={control}
+						render={({ field }) => (
+							<TextField
+								name={field.name}
+								inputRef={field.ref}
+								value={field.value}
+								onChange={field.onChange}
+								label="Last name"
+								variant="outlined"
+								fullWidth
+							/>
+						)}
 					/>
 				</Grid>
 				<Grid size={{ xs: 12, sm: 6 }}>
-					<TextField
+					<Controller
 						name="age"
-						id="age"
-						label="Age (required)"
-						fullWidth
-						slotProps={{
-							htmlInput: { inputMode: 'numeric' },
-						}}
+						control={control}
+						render={({ field }) => (
+							<TextField
+								name={field.name}
+								inputRef={field.ref}
+								value={field.value}
+								onChange={field.onChange}
+								label="Age"
+								variant="outlined"
+								fullWidth
+								slotProps={{
+									htmlInput: { inputMode: 'numeric' },
+								}}
+							/>
+						)}
 					/>
 				</Grid>
 				<Grid size={{ xs: 12, sm: 6 }}>
-					<TextField
+					<Controller
 						name="city"
-						id="city"
-						label="City (required)"
-						variant="outlined"
-						fullWidth
+						control={control}
+						render={({ field }) => (
+							<TextField
+								name={field.name}
+								inputRef={field.ref}
+								value={field.value}
+								onChange={field.onChange}
+								label="City"
+								variant="outlined"
+								fullWidth
+							/>
+						)}
 					/>
 				</Grid>
 			</Grid>

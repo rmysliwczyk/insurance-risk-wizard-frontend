@@ -9,16 +9,30 @@ import CustomerDataForm from './components/CustomerDataForm'
 import InsuranceDetailsForm from './components/InsuranceDetailsForm'
 import Summary from './components/Summary'
 
-import { FormStep, InsuranceType } from './types.ts'
+import { FormStep, InsuranceType, type FormInput } from './types.ts'
 
+import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 
 function App() {
 	const [formStep, setFormStep] = useState<FormStep>(FormStep.CustomerData)
 	const [summaryAvailable] = useState<boolean>(true)
-	const [insuranceType, setInsuranceType] = useState<InsuranceType>(
-		InsuranceType.Car
-	)
+	const { handleSubmit, control, watch } = useForm<FormInput>({
+		defaultValues: {
+			firstName: '',
+			lastName: '',
+			age: 18,
+			city: '',
+			insuranceType: InsuranceType.Car,
+			vehicleProductionYear: 0,
+			coverageAmount: 1000,
+			additionalOptions: false,
+		},
+	})
+
+	function onSubmit(data: FormInput) {
+		console.log(data)
+	}
 
 	return (
 		<>
@@ -32,28 +46,31 @@ function App() {
 				}}
 			>
 				<Typography variant="h1">Insurance Risk Wizard</Typography>
-				<Box
-					sx={{
-						maxWidth: '640px',
-						margin: '5px',
-					}}
-				>
-					{formStep == FormStep.CustomerData ? (
-						<CustomerDataForm />
-					) : formStep == FormStep.InsuranceDetails ? (
-						<InsuranceDetailsForm
-							insuranceType={insuranceType}
-							setInsuranceType={setInsuranceType}
-						/>
-					) : formStep == FormStep.Summary ? (
-						<Summary />
-					) : (
-						<Alert severity="error">
-							Something went wrong. Requested form page was not
-							found.
-						</Alert>
-					)}
-				</Box>
+				<form onSubmit={handleSubmit(onSubmit)} id="risk-form">
+					<Box
+						sx={{
+							maxWidth: '640px',
+							margin: '5px',
+						}}
+					>
+						{formStep == FormStep.CustomerData ? (
+							<CustomerDataForm control={control} />
+						) : formStep == FormStep.InsuranceDetails ? (
+							<InsuranceDetailsForm
+								control={control}
+								watch={watch}
+							/>
+						) : formStep == FormStep.Summary ? (
+							<Summary />
+						) : (
+							<Alert severity="error">
+								{
+									'Something went wrong. Requested form page was not found.'
+								}
+							</Alert>
+						)}
+					</Box>
+				</form>
 				<Pagination
 					count={
 						summaryAvailable
@@ -62,6 +79,7 @@ function App() {
 					}
 					onChange={(_, page) => setFormStep(page)}
 				/>
+				<input type="submit" form="risk-form" />
 			</Container>
 		</>
 	)
