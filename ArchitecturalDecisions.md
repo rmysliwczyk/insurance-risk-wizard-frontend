@@ -49,11 +49,15 @@ I'm familiar with it, it allows me to build API's with documentation and type hi
 
 ### Prettier
 
-For code formatting
+For code formatting.
 
 ### GitHub Actions
 
-For linting and code formatting actions
+For linting and code formatting actions.
+
+### Jira and VisualParadigm
+
+VisualParadigm for drafting an UML Use Case diagaram, and Jira for keeping track of tasks.
 
 # Code organization and decisions
 
