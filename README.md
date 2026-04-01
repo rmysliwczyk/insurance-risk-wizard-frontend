@@ -26,6 +26,8 @@ Self hosted here: [irw.mysliwczykrafal.pl](https://irw.mysliwczykrafal.pl)
 
 ## 📥 Deployment
 
+For the API url in .env, you can use my api: https://irw-api.mysliwczykrafal.pl
+If you'd like to create your own. Check the API docs here [https://irw-api.mysliwczykrafal.pl/docs](https://irw-api.mysliwczykrafal.pl/docs)
 If you wish to deploy the app yourself follow these steps:
 
 - Install [Docker](https://docs.docker.com/engine/install/) or [Podman](https://podman.io/docs/installation). If you use Podman, replace `docker` command with `podman` in the following steps.
