@@ -201,14 +201,14 @@ function App() {
 						href="https://www.linkedin.com/in/rafal-mysliwczyk"
 						color="secondary"
 					>
-						<FontAwesomeIcon size="2x" icon={faGithub} />
+						<FontAwesomeIcon size="2x" icon={faLinkedin} />
 					</Button>
 
 					<Button
 						href="https://github.com/rmysliwczyk"
 						color="secondary"
 					>
-						<FontAwesomeIcon size="2x" icon={faLinkedin} />
+						<FontAwesomeIcon size="2x" icon={faGithub} />
 					</Button>
 				</Box>
 			</Container>
