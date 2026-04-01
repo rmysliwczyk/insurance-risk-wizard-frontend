@@ -3,11 +3,13 @@
 Wizard for insurance risk level calculation
 
 ## 🌟 Highlights
+
 - 🌙 Dark mode with system preference awareness
 - ✨ Clean and simple
 - 📱Responsive design for mobile and desktop
 
 ## 💻 Technologies used
+
 - <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/TypeScript.svg" width=24/> **Typescript** for the programming language
 - <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/React-Light.svg" width=24/> **React** for the UI framework
 - <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/MaterialUI-Light.svg" width=24/> **MaterialUI** for the React component library
@@ -19,9 +21,11 @@ Wizard for insurance risk level calculation
 - <img src="https://odocs-zod.vercel.app/assets/logo.E2LRXKhl.svg" width=24/> **Zod** for form validation
 
 ## 👉 Try it!
-Self hosted here: [irw.mysliwczykrafal.pl](https://irw.mysliwczykrafal.pl)  
+
+Self hosted here: [irw.mysliwczykrafal.pl](https://irw.mysliwczykrafal.pl)
 
 ## 📥 Deployment
+
 If you wish to deploy the app yourself follow these steps:
 
 - Install [Docker](https://docs.docker.com/engine/install/) or [Podman](https://podman.io/docs/installation). If you use Podman, replace `docker` command with `podman` in the following steps.
@@ -59,5 +63,4 @@ No AI was used for the code or documentation of this project. I'm not opposed to
 
 <img src="public/screenshot1.png" width=1024 alt="Light mode"/>  
 <img src="public/screenshot2.png" width=1024 alt="Dark mode"/>
-<img src="public/screenshot3.png" width=1024 alt="Summary"/> 
-
+<img src="public/screenshot3.png" width=1024 alt="Summary"/>
