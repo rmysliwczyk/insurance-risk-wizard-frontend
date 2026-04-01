@@ -85,7 +85,7 @@ export const schema = z.union([
 	}),
 ])
 
-type FormInput = z.infer<typeof schema>
+export type FormInput = z.infer<typeof schema>
 
 export interface FormComponentProps {
 	control: Control<FormInput>

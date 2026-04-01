@@ -2,9 +2,12 @@ import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import CssBaseline from '@mui/material/CssBaseline'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
 import Pagination from '@mui/material/Pagination'
 import Typography from '@mui/material/Typography'
+
+import { useColorScheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import CustomerDataForm from './components/CustomerDataForm'
 import InsuranceDetailsForm from './components/InsuranceDetailsForm'
@@ -18,16 +21,27 @@ import {
 	type FormInput,
 } from './types.ts'
 
+import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons/faLinkedin'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 function App() {
+	// Hooks preparation section
+	// Dark theme related
+	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+	const { mode, setMode } = useColorScheme()
+
+	// General info and state related
 	const [formStep, setFormStep] = useState<FormStep>(FormStep.CustomerData)
-	const [validatedFormData, setValidatedFormData] =
-		useState<FormInput | null>(null)
 	const [summaryAvailable, setSummaryAvailable] = useState<boolean>(false)
 	const [riskLevel, setRiskLevel] = useState<RiskLevel | null>(null)
+
+	// Form data and validation
+	const [validatedFormData, setValidatedFormData] =
+		useState<FormInput | null>(null)
 	const [fetchError, setFetchError] = useState<boolean | null>(null)
 	const { handleSubmit, control, watch, formState } = useForm<FormInput>({
 		defaultValues: {
@@ -42,22 +56,33 @@ function App() {
 		},
 		resolver: zodResolver(schema),
 	})
+	// End of hooks preparation section
 
-	function onSubmit(data: FormInput) {
-		console.log('Form sent the following data:', data)
+	// Functions and hook calling section
+	// Dark theme related
+	useEffect(() => {
+		if (prefersDarkMode) {
+			setMode('dark')
+		} else {
+			setMode('light')
+		}
+	}, [prefersDarkMode])
 
-		// if (data.insuranceType != InsuranceType.Car) {
-		// 	delete data.vehicleProductionYear // Cleanup of the data, so that vehicle production year will not show null in summary
-		// }
-
-		setValidatedFormData(data)
-		setSummaryAvailable(true)
-		setFormStep(FormStep.Summary)
-		setRiskLevel(null)
-		setFetchError(null)
-		getRiskLevel(data)
+	function toggleColorSchemeMode() {
+		if (mode == 'system') {
+			if (prefersDarkMode) {
+				setMode('light')
+			} else {
+				setMode('dark')
+			}
+		} else if (mode == 'light') {
+			setMode('dark')
+		} else {
+			setMode('light')
+		}
 	}
 
+	// General info and state related
 	async function getRiskLevel(data: FormInput) {
 		const url = new URL(
 			`${await import.meta.env['VITE_API_URL']}/calculate-risk/`
@@ -72,13 +97,26 @@ function App() {
 			setRiskLevel(resData.riskLevel)
 			setFetchError(false)
 		} else {
+			console.error('API returned the following error', await res.json())
 			setFetchError(true)
 		}
 	}
 
+	// Form data and validation
+	function onSubmit(data: FormInput) {
+		console.log('Form sent the following data:', data)
+
+		setValidatedFormData(data)
+		setSummaryAvailable(true)
+		setFormStep(FormStep.Summary)
+		setRiskLevel(null)
+		setFetchError(null)
+		getRiskLevel(data)
+	}
+	// End of functions and hook calling sections
+
 	return (
 		<>
-			<CssBaseline />
 			<Container
 				sx={{
 					display: 'flex',
@@ -91,11 +129,14 @@ function App() {
 					sx={{
 						textAlign: 'center',
 						typography: { xs: 'h4', sm: 'h2' },
-						mb: 3,
+						mb: 1,
 					}}
 				>
 					Insurance Risk Wizard
 				</Typography>
+				<Button color="inherit" onClick={toggleColorSchemeMode}>
+					<DarkModeIcon />
+				</Button>
 				<form
 					onSubmit={handleSubmit(onSubmit)}
 					id="risk-form"
@@ -150,6 +191,26 @@ function App() {
 				<Button type="submit" variant="contained" form="risk-form">
 					Calculate risk
 				</Button>
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'row',
+					}}
+				>
+					<Button
+						href="https://www.linkedin.com/in/rafal-mysliwczyk"
+						color="secondary"
+					>
+						<FontAwesomeIcon size="2x" icon={faGithub} />
+					</Button>
+
+					<Button
+						href="https://github.com/rmysliwczyk"
+						color="secondary"
+					>
+						<FontAwesomeIcon size="2x" icon={faLinkedin} />
+					</Button>
+				</Box>
 			</Container>
 		</>
 	)
