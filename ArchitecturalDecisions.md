@@ -47,6 +47,14 @@ I use it as a reverse proxy to point to the containers that are running on my ho
 
 I'm familiar with it, it allows me to build API's with documentation and type hinting easily and quickly.
 
+### Prettier
+
+For code formatting
+
+### GitHub Actions
+
+For linting and code formatting actions
+
 # Code organization and decisions
 
 I've decided to put each step of the form in a separate component, in order to keep the code readable. I haven't put any logic in the form components themselves, because I feel it's easier to keep the logic on a level above. By having the state of the form be up a level from the component forms, I can share the state between form steps and have access to all of the data all at once, and thus it is easy to go back or forward.
