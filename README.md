@@ -39,10 +39,6 @@ Description of work organization and demo deployment details
 
 No AI was used for the code or documentation of this project. I'm not opposed to using AI tools in the right context, but for the purpose of my personal portfolio projects I've decided not to use them.
 
-Description of work organization and demo deployment details
-
-No AI was used for the code or documentation of this project. I'm not opposed to using AI tools in the right context, but for the purpose of my personal portfolio projects I've decided not to use them.
-
 ### Tools and resources
 
 #### Project management
